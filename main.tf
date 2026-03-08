@@ -1,6 +1,6 @@
 # ─── Roles ───────────────────────────────────────────────────────────────────
 
-resource "snowflake_role" "this" {
+resource "snowflake_account_role" "this" {
   for_each = var.roles
 
   name    = each.key
@@ -13,7 +13,7 @@ resource "snowflake_grant_account_role" "role_hierarchy" {
   role_name        = each.value.role_name
   parent_role_name = each.value.parent_role
 
-  depends_on = [snowflake_role.this]
+  depends_on = [snowflake_account_role.this]
 }
 
 # ─── Warehouses ──────────────────────────────────────────────────────────────
@@ -40,7 +40,7 @@ resource "snowflake_grant_privileges_to_account_role" "warehouse" {
     object_name = each.value.warehouse_name
   }
 
-  depends_on = [snowflake_warehouse.this, snowflake_role.this]
+  depends_on = [snowflake_warehouse.this, snowflake_account_role.this]
 }
 
 # ─── Users ───────────────────────────────────────────────────────────────────
@@ -58,7 +58,7 @@ resource "snowflake_user" "this" {
   password             = each.value.password
   comment              = each.value.comment
 
-  depends_on = [snowflake_role.this, snowflake_warehouse.this]
+  depends_on = [snowflake_account_role.this, snowflake_warehouse.this]
 }
 
 resource "snowflake_grant_account_role" "user_roles" {
@@ -67,7 +67,7 @@ resource "snowflake_grant_account_role" "user_roles" {
   role_name = each.value.role_name
   user_name = each.value.user_name
 
-  depends_on = [snowflake_user.this, snowflake_role.this]
+  depends_on = [snowflake_user.this, snowflake_account_role.this]
 }
 
 # ─── Databases ───────────────────────────────────────────────────────────────
@@ -90,5 +90,5 @@ resource "snowflake_grant_privileges_to_account_role" "database" {
     object_name = each.value.db_name
   }
 
-  depends_on = [snowflake_database.this, snowflake_role.this]
+  depends_on = [snowflake_database.this, snowflake_account_role.this]
 }

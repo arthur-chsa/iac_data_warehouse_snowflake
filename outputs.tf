@@ -1,6 +1,6 @@
 output "roles" {
   description = "Created Snowflake account roles"
-  value       = { for k, v in snowflake_role.this : k => v.name }
+  value       = { for k, v in snowflake_account_role.this : k => v.name }
 }
 
 output "warehouses" {
