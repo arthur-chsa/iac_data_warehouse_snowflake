@@ -1,7 +1,7 @@
 # This file has values for the corresponding environment, and should be assign to the workspace
 # It is part of the repo, so it should not have secret values
 
-snowflake_account           = "SLDGLDQ-IR60026.snowflakecomputing.com"
+snowflake_account           = "SLDGLDQ-IR60026"
 snowflake_username          = "TERRAFORM_SA"
 snowflake_role              = "ACCOUNTADMIN"
 

@@ -5,12 +5,12 @@
 
 ### Generate private key
 ```
-openssl genrsa 2048 | openssl pkcs8 -topk8 -v2 des3 -inform PEM -out rsa_key.p8
+openssl genrsa 2048 | openssl pkcs8 -topk8 -nocrypt -out keys/rsa_key.p8
 ```
 
 ### Generate public key
 ```
-openssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
+openssl rsa -in keys/rsa_key.p8 -pubout -out keys/rsa_key.pub
 ```
 
 ### Grant privilege to assign a public key to a user
