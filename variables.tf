@@ -20,7 +20,7 @@ variable "snowflake_private_key_passphrase" {
   description = "Passphrase for the private key, if it was generated with one. Omit if the key has no passphrase."
   type        = string
   sensitive   = true
-  default     = ""
+  default     = null
 }
 
 variable "snowflake_role" {

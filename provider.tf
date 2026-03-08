@@ -12,6 +12,7 @@ terraform {
 provider "snowflake" {
   account                = var.snowflake_account
   username               = var.snowflake_username
+  authenticator          = "JWT"
   private_key            = var.snowflake_private_key
   private_key_passphrase = var.snowflake_private_key_passphrase
   role                   = var.snowflake_role
