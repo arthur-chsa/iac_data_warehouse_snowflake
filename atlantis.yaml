@@ -1,0 +1,32 @@
+version: 3
+projects:
+  - name: snowflake-roles
+    dir: environment/roles
+    autoplan:
+      when_modified:
+        - '*.tf'
+        - .terraform.lock.hcl
+
+  - name: snowflake-warehouses
+    dir: environment/warehouses
+    depends_on: [snowflake-roles]
+    autoplan:
+      when_modified:
+        - '*.tf'
+        - .terraform.lock.hcl
+
+  - name: snowflake-databases
+    dir: environment/databases
+    depends_on: [snowflake-roles]
+    autoplan:
+      when_modified:
+        - '*.tf'
+        - .terraform.lock.hcl
+
+  - name: snowflake-users
+    dir: environment/users
+    depends_on: [snowflake-roles, snowflake-warehouses]
+    autoplan:
+      when_modified:
+        - '*.tf'
+        - .terraform.lock.hcl
